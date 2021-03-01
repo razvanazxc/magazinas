@@ -1,0 +1,10 @@
+{% extends "accounts/produs_list.html" %}
+{% block content %}
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <a href="produs_list.html">
+        <input type="submit" name="Create user">
+    </a>
+</form>
+{% endblock %}

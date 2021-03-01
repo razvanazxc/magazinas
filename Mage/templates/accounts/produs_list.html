@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Base</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-dark fixed-top custom-navbar">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li><a class="navbar-brand bigbrand" href="{% url "produs_list" %}">Home</a></li>
+            <li><a class="" href="{% url "produs_list" %}">About</a></li>
+            <li><a class="" href="https://www.github.com">Github</a></li>
+            <li><a class="" href="https://www.linkedin.com">LinkedIn</a></li>
+        </ul>
+
+         <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+
+        <li>
+            <a href="{% url 'logout' %}">Log Out</a>
+
+        </li>
+        <li>
+            <a>Welcome: {{ user.email }}</a>
+        </li>
+
+        {% else %}
+
+        <li><a class="nav navbar-right" href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span></a></li>
+            <li><a class="nav navbar-right" href="{% url 'register_page' %}">Inregistrare</a></li>
+        {% endif %}
+
+    </div>
+</nav>
+{% if request.user.is_authenticated %}
+
+    {% for form in produs_list %}
+        <div class="container">
+        <div class="jumbotron">
+            <h1>Descriere {{ form.descriere }}</h1>
+            <h1>Lei: {{ form.pret }}</h1>
+             <h1>Cantitate {{ form.cantitate }}</h1>
+            <a href="{% url "cosulet" pk=form.pk %}">
+            <button type="button" class="btn btn-success" >Cumpara</button>
+                </a>
+        </div>
+        </div>
+    {% endfor %}
+
+
+{% endif %}
+{% block content %}
+    <div class="container">
+    <div class="jumbotron">
+        <h1>Ergo Sum Lama Dama</h1>
+    </div>
+
+    </div>
+
+{% endblock %}
+</body>
+</html>

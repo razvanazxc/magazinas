@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Base</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-dark fixed-top custom-navbar">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li><a class="navbar-brand bigbrand" href="{% url "produs_list" %}">Home</a></li>
+            <li><a class="" href="{% url "produs_list" %}">About</a></li>
+            <li><a class="" href="https://www.github.com">Github</a></li>
+            <li><a class="" href="https://www.linkedin.com">LinkedIn</a></li>
+        </ul>
+
+         <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+
+        <li>
+            <a href="{% url 'logout' %}">Log Out</a>
+
+        </li>
+        <li>
+            <a>Welcome: {{ user.email }}</a>
+        </li>
+
+        {% else %}
+
+        <li><a class="nav navbar-right" href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span></a></li>
+            <li><a class="nav navbar-right" href="{% url 'register_page' %}">Inregistrare</a></li>
+        {% endif %}
+
+    </div>
+
+
+{% block content %}
+<div class="container">
+<div class="jumbotron">
+    {% if produs_list.cantitate > 0 %}
+        <h1>Cumparare efectuata cu succes</h1>
+    <h1>Descriere {{ produs_list.descriere }}</h1>
+            <h1>Lei: {{ produs_list.pret }}</h1>
+             <h1>Cantitate: {{ produs_list.cantitate }}</h1>
+        {% else %}
+
+        <p>Stoc epuizat, ne cerem scuze</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+</div>
+</body>
