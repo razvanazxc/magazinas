@@ -12,8 +12,8 @@
 <nav class="navbar navbar-default navbar-dark fixed-top custom-navbar">
     <div class="container">
         <ul class="nav navbar-nav">
-            <li><a class="navbar-brand bigbrand" href="{% url "produs_list" %}">Home</a></li>
-            <li><a class="" href="{% url "produs_list" %}">About</a></li>
+            <li><a class="navbar-brand bigbrand" href="{% url "home_list" %}">Home</a></li>
+            <li><a class="" href="{% url "home_list" %}">About</a></li>
             <li><a class="" href="https://www.github.com">Github</a></li>
             <li><a class="" href="https://www.linkedin.com">LinkedIn</a></li>
         </ul>
@@ -39,13 +39,13 @@
 </nav>
 {% if request.user.is_authenticated %}
 
-    {% for form in produs_list %}
+    {% for form in product_list %}
         <div class="container">
         <div class="jumbotron">
-            <h1>Descriere {{ form.descriere }}</h1>
-            <h1>Lei: {{ form.pret }}</h1>
-             <h1>Cantitate {{ form.cantitate }}</h1>
-            <a href="{% url "cosulet" pk=form.pk %}">
+            <h1>Descriere {{ form.description }}</h1>
+            <h1>Lei: {{ form.price }}</h1>
+             <h1>Cantitate {{ form.quantity }}</h1>
+            <a href="{% url "basket" pk=form.pk %}">
             <button type="button" class="btn btn-success" >Cumpara</button>
                 </a>
         </div>

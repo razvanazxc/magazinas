@@ -12,8 +12,8 @@
 <nav class="navbar navbar-default navbar-dark fixed-top custom-navbar">
     <div class="container">
         <ul class="nav navbar-nav">
-            <li><a class="navbar-brand bigbrand" href="{% url "produs_list" %}">Home</a></li>
-            <li><a class="" href="{% url "produs_list" %}">About</a></li>
+            <li><a class="navbar-brand bigbrand" href="{% url "home_list" %}">Home</a></li>
+            <li><a class="" href="{% url "home_list" %}">About</a></li>
             <li><a class="" href="https://www.github.com">Github</a></li>
             <li><a class="" href="https://www.linkedin.com">LinkedIn</a></li>
         </ul>
@@ -41,11 +41,11 @@
 {% block content %}
 <div class="container">
 <div class="jumbotron">
-    {% if produs_list.cantitate > 0 %}
+    {% if item.quantity > 0 %}
         <h1>Cumparare efectuata cu succes</h1>
-    <h1>Descriere {{ produs_list.descriere }}</h1>
-            <h1>Lei: {{ produs_list.pret }}</h1>
-             <h1>Cantitate: {{ produs_list.cantitate }}</h1>
+    <h1>Descriere {{ item.description }}</h1>
+            <h1>Lei: {{ item.price }}</h1>
+             <h1>Cantitate: {{ item.quantity }}</h1>
         {% else %}
 
         <p>Stoc epuizat, ne cerem scuze</p>

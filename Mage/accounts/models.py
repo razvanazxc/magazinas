@@ -70,18 +70,19 @@ class MyUser(AbstractBaseUser):
         return self.is_admin
 
 
-class Produs(models.Model):
-    pret = models.FloatField(null=False)
-    descriere = models.TextField(null=True)
-    cantitate = models.IntegerField(null=True)
+class Product(models.Model):
+    name = models.TextField(null=False)
+    price = models.FloatField(null=False)
+    description = models.TextField(null=True)
+    quantity = models.IntegerField(null=True)
 
 
-class Istoric(models.Model):
-    autor = models.ForeignKey('accounts.MyUser', on_delete=models.RESTRICT)
-    item = models.ForeignKey('accounts.Produs', on_delete=models.RESTRICT)
-    data = models.DateTimeField(default=timezone.now)
+class History(models.Model):
+    author = models.ForeignKey('accounts.MyUser', on_delete=models.RESTRICT)
+    item = models.ForeignKey('accounts.Product', on_delete=models.RESTRICT)
+    date = models.DateTimeField(default=timezone.now)
 
 
-class Monetar(models.Model):
-    autor = models.OneToOneField('accounts.MyUser', on_delete=models.RESTRICT)
+class Wallet(models.Model):
+    author = models.OneToOneField('accounts.MyUser', on_delete=models.RESTRICT)
     balance = models.FloatField(null=False)

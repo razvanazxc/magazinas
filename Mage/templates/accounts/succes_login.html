@@ -1,0 +1,13 @@
+{% extends "accounts/home_list.html" %}
+{% block content %}
+    {% if request.user.is_authenticated%}
+        <h1>Go back to home</h1>
+
+
+        {% else %}
+
+        <h1>Now you can log in</h1>
+
+    {% endif %}
+
+{% endblock %}

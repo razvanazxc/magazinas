@@ -1,10 +1,21 @@
-{% extends "accounts/produs_list.html" %}
+{% extends "accounts/home_list.html" %}
 {% block content %}
-<form method="post" action="">
+    {% if request.user.is_authenticated %}
+        <h1>Please log out to register another account!</h1>
+        {% else %}
+        {% if messages %}
+            {% for message in messages %}
+                <h1>{{ message }}</h1>
+            {% endfor %}
+
+    {% else %}
+        <form method="post" action="">
     {% csrf_token %}
     {{ form.as_p }}
-    <a href="produs_list.html">
-        <input type="submit" name="Create user">
+    <a href="{% url "register_page"  %}">
+        <input type="submit" name="Create user" value="Create usr">
     </a>
 </form>
+    {% endif %}
+    {% endif %}
 {% endblock %}

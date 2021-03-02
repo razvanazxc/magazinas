@@ -19,11 +19,12 @@ from django.urls import path, include
 from accounts import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("home/", views.EnteringView.as_view(), name="produs_list"),
-    path("register/",views.registerPage, name="register_page"),
-    path("accounts/profile/",views.EnteringView.as_view()),
-    path("accounts/logout/login",views.EnteringView.as_view()),
+    path("home/", views.EnteringView.as_view(), name="home_list"),
+    path("register/", views.registerPage, name="register_page"),
+    path("accounts/profile/", views.EnteringView.as_view()),
+    path("home/succes",views.succes_view, name="succes_prompt"),
+    path("accounts/logout/login", views.LoginView.as_view()),
     path('accounts/', include('django.contrib.auth.urls')),
-    path("cosulet/<int:pk>/", views.Cosulet, name="cosulet"),
+    path("history/<int:pk>/", views.HistoryDetail, name="basket"),
 
 ]

@@ -12,32 +12,44 @@ from django.contrib.auth.forms import UserCreationForm
 from accounts.forms import *
 # Create your views here.
 
+
 class EnteringView(ListView):
-    model = Produs
+    template_name = "accounts/home_list.html"
+    model = Product
+
+class LoginView(ListView):
+    template_name = "registration/login.html"
+    model = Product
+
+def succes_view(request):
+    return render(request, "accounts/succes_login.html")
 
 def registerPage(request):
     form = CreateUserForm()
+    messages = []
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
+            messages.append("Inregistrare cu success")
+            context = {"messages": messages}
             form.save()
-            return redirect('produs_list')
-
-
+            return render(request, "accounts/register.html", context)
 
     context = {'form': form}
     return render (request, 'accounts/register.html', context)
 
 
-def Cosulet(request, pk,):
-    item = Produs.objects.get(id=pk)
-    item2 = Istoric()
-    item2.autor = MyUser.objects.get(id=pk)
-    item2.item = Produs.objects.get(id=pk)
-    item.cantitate = item.cantitate - 1
-    if item.cantitate <= 0:
-        item.cantitate = 0
+def HistoryDetail(request, pk):
+    item = Product.objects.get(id=pk)
+    item2 = History()
+    print(request.user)
+
+    item2.author = MyUser.objects.get(pk=request.user.pk)
+    item2.item = Product.objects.get(id=pk)
+    item.quantity = item.quantity - 1
+    if item.quantity <= 0:
+        item.quantity = 0
     item.save()
     item2.save()
 
-    return render(request, 'accounts/cosulet.html', {'produs_list': item})
+    return render(request, 'accounts/basket.html', {'item': item})

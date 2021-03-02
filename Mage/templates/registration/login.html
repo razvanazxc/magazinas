@@ -1,4 +1,4 @@
-{% extends "accounts/produs_list.html" %}
+{% extends "accounts/home_list.html" %}
 
 {% block content %}
 
@@ -27,7 +27,7 @@
     <td>{{ form.password }}</td>
 </tr>
 </table>
-<a href="{% url 'produs_list'%}">
+<a href="{% url 'home_list'%}">
     <input type="submit" value="Login">
 </a>
 
