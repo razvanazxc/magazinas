@@ -84,7 +84,7 @@ class History(models.Model):
     author = models.ForeignKey('accounts.MyUser', on_delete=models.RESTRICT)
     item = models.ForeignKey('accounts.Product', on_delete=models.RESTRICT)
     date = models.DateTimeField(default=timezone.now)
-
+    activation_code = models.IntegerField(null=True)
     def __str__(self):
         return self.item.name
 

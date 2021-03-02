@@ -42,6 +42,7 @@ def registerPage(request):
 def HistoryDetail(request, pk):
     item = Product.objects.get(id=pk)
     item2 = History()
+    item2.activation_code = 123456789
     print(request.user)
     has_money = Wallet.objects.get(author=request.user)
     item2.author = MyUser.objects.get(pk=request.user.pk)
