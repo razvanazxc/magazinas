@@ -81,6 +81,7 @@ class Istoric(models.Model):
     item = models.ForeignKey('accounts.Produs', on_delete=models.RESTRICT)
     data = models.DateTimeField(default=timezone.now)
 
+
 class Monetar(models.Model):
-    autor = models.ForeignKey('accounts.MyUser', on_delete=models.RESTRICT,unique=True)
+    autor = models.OneToOneField('accounts.MyUser', on_delete=models.RESTRICT)
     balance = models.FloatField(null=False)
