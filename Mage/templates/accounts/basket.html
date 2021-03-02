@@ -19,7 +19,7 @@
         </ul>
 
          <ul class="nav navbar-nav navbar-right">
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated  %}
 
         <li>
             <a href="{% url 'logout' %}">Log Out</a>
@@ -41,14 +41,15 @@
 {% block content %}
 <div class="container">
 <div class="jumbotron">
-    {% if item.quantity > 0 %}
+<p>Acum aveti: {{ wallet.balance|floatformat:3}} lei</p>
+    {% if item.quantity > 0 and wallet.balance > 0 %}
         <h1>Cumparare efectuata cu succes</h1>
     <h1>Descriere {{ item.description }}</h1>
             <h1>Lei: {{ item.price }}</h1>
              <h1>Cantitate: {{ item.quantity }}</h1>
         {% else %}
 
-        <p>Stoc epuizat, ne cerem scuze</p>
+        <p>Stoc epuizat(sau fonduri insuficiente), ne cerem scuze</p>
     {% endif %}
 </div>
 

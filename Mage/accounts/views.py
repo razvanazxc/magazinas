@@ -43,13 +43,30 @@ def HistoryDetail(request, pk):
     item = Product.objects.get(id=pk)
     item2 = History()
     print(request.user)
-
+    has_money = Wallet.objects.get(author=request.user)
     item2.author = MyUser.objects.get(pk=request.user.pk)
     item2.item = Product.objects.get(id=pk)
     item.quantity = item.quantity - 1
     if item.quantity <= 0:
         item.quantity = 0
     item.save()
+    has_money.save()
     item2.save()
+    if has_money.balance >= item.price:
+        has_money.balance = has_money.balance - item.price
+        has_money.save()
+        return render(request, 'accounts/basket.html', {'item': item, 'wallet': has_money})
+    else:
+        return render(request, 'accounts/no_founds_error.html')
 
-    return render(request, 'accounts/basket.html', {'item': item})
+
+
+class Purchased(ListView):
+    template_name = "accounts/history.html"
+    model = History
+
+
+class User_Wallet(ListView):
+    template_name = "accounts/money_balance.html"
+    model = Wallet
+

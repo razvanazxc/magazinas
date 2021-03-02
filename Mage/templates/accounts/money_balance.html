@@ -1,0 +1,15 @@
+{% extends "accounts/home_list.html" %}
+ {% block content %}
+     <h1>{{ request.user }}</h1>
+    {% for form in  wallet_list %}
+        {% if request.user == form.author %}
+    <div class="jumbotron">
+    <h1>Balanta contului dumneavoastra este: {{ form.balance }} lei</h1>
+
+
+
+    </div>
+        {% endif %}
+    {% endfor %}
+
+  {% endblock %}

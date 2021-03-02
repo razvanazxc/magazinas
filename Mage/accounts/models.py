@@ -76,13 +76,21 @@ class Product(models.Model):
     description = models.TextField(null=True)
     quantity = models.IntegerField(null=True)
 
+    def __str__(self):
+        return self.name
+
 
 class History(models.Model):
     author = models.ForeignKey('accounts.MyUser', on_delete=models.RESTRICT)
     item = models.ForeignKey('accounts.Product', on_delete=models.RESTRICT)
     date = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return self.item.name
+
 
 class Wallet(models.Model):
     author = models.OneToOneField('accounts.MyUser', on_delete=models.RESTRICT)
     balance = models.FloatField(null=False)
+    def __str__(self):
+        return self.author.email
