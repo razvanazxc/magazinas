@@ -19,12 +19,15 @@ class EnteringView(ListView):
     template_name = "accounts/home_list.html"
     model = Product
 
+
 class LoginView(ListView):
     template_name = "registration/login.html"
     model = Product
 
+
 def succes_view(request):
     return render(request, "accounts/succes_login.html")
+
 
 def registerPage(request):
     form = CreateUserForm()
@@ -40,11 +43,13 @@ def registerPage(request):
             messages.append("Inregistrare cu success")
             context = {"messages": messages}
             form.save()
+            tooken = MyUser.objects.get(email=form.cleaned_data['email'])
             send_mail(
                 'Confirmare inregistrare',
-                ('Cont creat cu succes'),
+                ('Cont creat cu succes \n Tokenul este: '+str(tooken.activation_token)+
+                 "\nlink activare: "+"http://127.0.0.1:8000/emailconfirm/"+str(tooken.activation_token)),
                 'razvanazxc@gmail.com',
-                [request.user.email],
+                [form.cleaned_data['email']],
                 fail_silently=False,
             )
             return render(request, "accounts/register.html", context)
@@ -84,4 +89,16 @@ class Purchased(ListView):
 class User_Wallet(ListView):
     template_name = "accounts/money_balance.html"
     model = Wallet
+
+
+def email_confirm(request, activation_token):
+    user = MyUser.objects.get(activation_token=activation_token)
+    if user:
+        user.is_active = True
+        user.activation_token = 'f4a93f89-6b6e-4b2d-aa54-19eb7a268cef'
+        user.save()
+        context = {'user': user}
+        return render(request, "accounts/email_activated.html", context)
+    else:
+        return render(request, "accounts/home_list.html")
 

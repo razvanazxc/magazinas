@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
+import uuid
 
 
 class MyUserManager(BaseUserManager):
@@ -42,9 +43,10 @@ class MyUser(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 
+    activation_token = models.UUIDField(editable=False, unique=True, default=uuid.uuid4)
     objects = MyUserManager()
 
     USERNAME_FIELD = 'email'

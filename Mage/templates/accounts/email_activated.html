@@ -1,0 +1,11 @@
+{% extends "accounts/home_list.html" %}
+{% block content %}
+    {% if user.is_active == True%}
+        {% if user.activation_token == 'f4a93f89-6b6e-4b2d-aa54-19eb7a268cef' %}
+
+    <h1>Now you can log in</h1>
+            {% endif %}
+        {% else %}
+        <h1>Account already activated! </h1>
+    {% endif %}
+{% endblock %}

@@ -22,11 +22,12 @@ urlpatterns = [
     path("home/", views.EnteringView.as_view(), name="home_list"),
     path("register/", views.registerPage, name="register_page"),
     path("accounts/profile/", views.EnteringView.as_view()),
-    path("home/succes",views.succes_view, name="succes_prompt"),
+    path("home/succes", views.succes_view, name="succes_prompt"),
     path("accounts/logout/login", views.LoginView.as_view()),
     path('accounts/', include('django.contrib.auth.urls')),
     path("history/<int:pk>/", views.HistoryDetail, name="basket"),
     path("purchased/", views.Purchased.as_view(), name="purchased"),
     path("balance/", views.User_Wallet.as_view(), name="money_balance"),
+    path("emailconfirm/<str:activation_token>", views.email_confirm, name="email_confirm")
 
 ]
