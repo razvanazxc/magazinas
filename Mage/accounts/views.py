@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from accounts.models import *
+import secrets
+from django.core.mail import send_mail
 #from blog.forms import PostForm, CommentForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -27,12 +29,24 @@ def succes_view(request):
 def registerPage(request):
     form = CreateUserForm()
     messages = []
+
     if request.method == 'POST':
+        token = secrets.token_hex(5)
+
         form = CreateUserForm(request.POST)
+
         if form.is_valid():
+
             messages.append("Inregistrare cu success")
             context = {"messages": messages}
             form.save()
+            send_mail(
+                'Confirmare inregistrare',
+                ('Cont creat cu succes'),
+                'razvanazxc@gmail.com',
+                [request.user.email],
+                fail_silently=False,
+            )
             return render(request, "accounts/register.html", context)
 
     context = {'form': form}
